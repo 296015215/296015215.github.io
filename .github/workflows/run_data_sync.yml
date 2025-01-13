@@ -25,7 +25,7 @@ on:
 
 env:
   # please change to your own config.
-  RUN_TYPE: pass # support strava/nike/garmin/coros/garmin_cn/garmin_sync_cn_global/keep/only_gpx/only_fit/nike_to_strava/strava_to_garmin/tcx_to_garmin/strava_to_garmin_cn/garmin_to_strava/garmin_to_strava_cn/codoon/oppo, Please change the 'pass' it to your own
+  RUN_TYPE: only_gpx # support strava/nike/garmin/coros/garmin_cn/garmin_sync_cn_global/keep/only_gpx/only_fit/nike_to_strava/strava_to_garmin/tcx_to_garmin/strava_to_garmin_cn/garmin_to_strava/garmin_to_strava_cn/codoon/oppo, Please change the 'pass' it to your own
   ATHLETE: 李一鸣
   TITLE: 李一鸣 Running
   MIN_GRID_DISTANCE: 10 # change min distance here
@@ -204,7 +204,6 @@ jobs:
       - name: Make svg GitHub profile
         if: env.RUN_TYPE != 'pass'
         run: |
-          python run_page/joyrun_sync.py 15022314279 601959 --with-gpx
           python run_page/gen_svg.py --from-db --title "${{ env.TITLE }}" --type github --athlete "${{ env.ATHLETE }}" --special-distance 10 --special-distance2 20 --special-color yellow --special-color2 red --output assets/github.svg --use-localtime --min-distance 0.5
           python run_page/gen_svg.py --from-db --title "${{ env.TITLE_GRID }}" --type grid --athlete "${{ env.ATHLETE }}" --output assets/grid.svg --special-color yellow --special-color2 red --special-distance 20 --special-distance2 40 --use-localtime --min-distance "${{ env.MIN_GRID_DISTANCE }}"
           python run_page/gen_svg.py --from-db --type circular --use-localtime
